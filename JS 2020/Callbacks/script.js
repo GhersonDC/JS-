@@ -30,7 +30,7 @@ const users = [
     }
 ]
 
-const email = [
+const emails = [
     {
         id : 1,
         email : 'DC@@gmail.com'
@@ -47,7 +47,22 @@ const getUser = (id,cb)=>{
 
 }
 
-getUser(1,(err, user)=>{
+const getEmail = (user,cb)=>{
+    const email = emails.find(email=>email.id == user.id)
+    if(!email) cb(`${user.name} hasn't an email`) // if(user==undefined)
+    else cb(null,{
+        id:user.id,
+        name : user.name,
+        email : email.email
+    })
+}
+
+//callback function
+getUser(3,(err, user)=>{
     if(err) return console.log(err)
-    console.log(user)
+    // console.log(user)
+    getEmail(user,(err,res)=>{
+        if(err) return console.log(err)
+        console.log(res);
+    })
 })
